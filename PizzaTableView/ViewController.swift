@@ -8,18 +8,29 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, TableViewControllerDelegate { // Delegate Class
+    
+    @IBOutlet weak var pizzaName: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func didSelectItem(name: String, price: Double) {
+        pizzaName.text = name
+        priceLabel.text = String(format:"TOTAL : %02.2f€",price)
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Table"{
+        
+            let vc = segue.destination as! TableViewController
+            vc.delegate = self
+        
+        }
+    }
 
 }
-
